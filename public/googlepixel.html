@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaLToo</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- title Icon-->
+    <link rel="icon" href="./image/banner.jpg" type="image/jpeg">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+</head>
+
+<body>
+
+    <!-- header section starts  -->
+
+    <header class="header" style="
+display: flex;
+align-items: center;
+padding:2px 5%;
+justify-content: space-between;
+background:white;">
+
+        <a href="./index.html" class="logo"> <i class="fas fa-shopping-cart"></i>MOBILE_HUB</a>
+        &nbsp;
+        <nav class="navbar" style="
+    font-size: 1.7rem;
+    margin:0.1%;">
+            <a href="#home" class="hov">home</a>
+            <a href="#features" class="hov">features</a>
+            <a href="#products" class="hov">products</a>
+            <a href="#categories" class="hov">categories</a>
+            <a href="#review" class="hov">review</a>
+            <a href="#blogs" class="hov">blogs</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-search" id="search-btn"></div>
+            <div class="fas fa-shopping-cart" id="cart-btn">&nbsp;<span>0</span></div>
+        </div>
+
+        <form action="" class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+        </form>
+
+        <div class="shopping-cart">
+            <div class="box">
+                <i class="fas fa-trash"></i>
+                <img alt="Google Pixel 9 Pro" src="https://fdn2.gsmarena.com/vv/bigpic/google-pixel-9-pro.jpg">
+                <div class="content">
+                    <h3>Google Pixel 9 Pro</h3>
+                    <span class="price"> &#8377 1,09,999/-</span>
+                    <span class="quantity">qty : 1</span>
+                </div>
+            </div>
+            <div class="box">
+                <i class="fas fa-trash"></i>
+                <img alt="Google Pixel 8a" src="https://fdn2.gsmarena.com/vv/bigpic/google-pixel-8a.jpg">
+                <div class="content">
+                    <h3>Google Pixel 8a</h3>
+                    <span class="price"> &#8377 52,999/-</span>
+                    <span class="quantity">qty : 1</span>
+                </div>
+            </div>
+            <div class="box">
+                <i class="fas fa-trash"></i>
+                <img alt="Google Pixel 8" src="https://fdn2.gsmarena.com/vv/bigpic/google-pixel-8.jpg">
+                <div class="content">
+                    <h3>Google Pixel 8</h3>
+                    <span class="price"> &#8377 75,999/-</span>
+                    <span class="quantity">qty : 1</span>
+                </div>
+            </div>
+            <div class="total"> total : &#8377 2,38,997/- </div>
+            <a href="checkout.html" class="btn">checkout</a>
+        </div>
+
+        <form action="./connect.php" class="login-form">
+            <h3>login now</h3>
+            <input type="email" name="user" id="user" placeholder="your email" class="box">
+            <input type="password" name="pass" id="pass" placeholder="your password" class="box">
+            <p>forget your password <a href="FormValidation.html">click here</a></p>
+            <p>don't have an account <a href="FormValidation.html">create now</a></p>
+            <button type="submit" name="submit" class="btn"> Login Now </button>
+        </form>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+
+    <section class="home" id="home">
+
+        <div class="content">
+            <h3>Brand New and <span>Latest</span> Google Pixel for you</h3>
+            <p style="color:aliceblue ;">When it comes to business store, our store provides you with latest and first handle models. &nbsp; Still Confuse? Look for More below.</p>
+            <a href="./ShopNow.html" class="btn">shop now</a>
+        </div>
+
+    </section>
+
+    <!-- home section ends -->
+
+    <!-- Google Pixel section starts  -->
+
+    <section class="features" id="features">
+
+        <h1 class="heading"><span>Google Pixel</span> </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <img src="https://kantronics.co.ke/cdn/shop/files/pixel_11_pro_canyon.webp?v=1786623043" alt="">
+                <h3>Pixel 10 Pro XL</h3>
+                <p>Google Tensor G5 CPU <br> 6.8" 120Hz LTPO Amoled display <br> 50MP Triple Camera <br> Ram and Storage : 16GB, 512GB </p>
+                <span class="price">$550</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://ringke.co.in/cdn/shop/files/PXL10PXL_FUS_Main4.jpg?v=1760522612" alt="">
+                <h3>Pixel 10 Pro</h3>
+                <p>Google Tensor G5 CPU <br> 6.3" 120Hz LTPO Amoled display <br> 50MP Triple Camera <br> Ram and Storage : 16GB, 256GB </p>
+                <span class="price">$800</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://vookamarketplace.fra1.digitaloceanspaces.com/vooka/products/google-pixel-10-phonetronics-kenya05-09-2025-1757062913.webp" alt="">
+                <h3>Pixel 10</h3>
+                <p>Google Tensor G5 CPU <br> 6.2" 120Hz Amoled display <br> 50MP Dual Camera <br> Ram and Storage : 12GB, 256GB </p>
+                <span class="price">$500</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://i.ebayimg.com/images/g/UsgAAeSw4cto-iJ6/s-l960.webp" alt="">
+                <h3>Pixel 10 Pro Fold</h3>
+                <p>Google Tensor G5 CPU <br> 8" 120Hz LTPO Amoled inner <br> 50MP Triple Camera <br> Ram and Storage : 16GB, 512GB </p>
+                <span class="price">$1,200</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-9-pro-xl-1.jpg" alt="">
+                <h3>Pixel 9 Pro XL</h3>
+                <p>Google Tensor G4 CPU <br> 6.8" 120Hz LTPO Amoled display <br> 50MP Triple Camera <br> Ram and Storage : 16GB, 512GB </p>
+                <span class="price">$715</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-9-pro-1.jpg" alt="">
+                <h3>Pixel 9 Pro</h3>
+                <p>Google Tensor G4 CPU <br> 6.3" 120Hz LTPO Amoled display <br> 50MP Triple Camera <br> Ram and Storage : 16GB, 256GB </p>
+                <span class="price">$401</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-9-1.jpg" alt="">
+                <h3>Pixel 9</h3>
+                <p>Google Tensor G4 CPU <br> 6.3" 120Hz Amoled display <br> 50MP Dual Camera <br> Ram and Storage : 12GB, 256GB </p>
+                <span class="price">$300</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-9-pro-fold-1.jpg" alt="">
+                <h3>Pixel 9 Pro Fold</h3>
+                <p>Google Tensor G4 CPU <br> 8" 120Hz LTPO Amoled inner <br> 48MP Triple Camera <br> Ram and Storage : 16GB, 512GB </p>
+                <span class="price">$500</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-8a-1.jpg" alt="">
+                <h3>Pixel 8a</h3>
+                <p>Google Tensor G3 CPU <br> 6.1" 120Hz OLED display <br> 64MP Dual Camera <br> Ram and Storage : 8GB, 256GB </p>
+                <span class="price">$220</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-8-1.jpg" alt="">
+                <h3>Pixel 8</h3>
+                <p>Google Tensor G3 CPU <br> 6.2" 120Hz OLED display <br> 50MP Dual Camera <br> Ram and Storage : 8GB, 256GB </p>
+                <span class="price">$200</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-8-pro-1.jpg" alt="">
+                <h3>Pixel 8 Pro</h3>
+                <p>Google Tensor G3 CPU <br> 6.7" 120Hz LTPO OLED display <br> 50MP Triple Camera <br> Ram and Storage : 12GB, 512GB </p>
+                <span class="price">$250</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-7a-1.jpg" alt="">
+                <h3>Pixel 7a</h3>
+                <p>Google Tensor G2 CPU <br> 6.1" 90Hz OLED display <br> 64MP Dual Camera <br> Ram and Storage : 8GB, 128GB </p>
+                <span class="price">$160</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://zellen.com.pk/assets/generated/pixel-7-pro.webp" alt="">
+                <h3>Pixel 7</h3>
+                <p>Google Tensor G2 CPU <br> 6.3" 90Hz OLED display <br> 50MP Dual Camera <br> Ram and Storage : 8GB, 128GB </p>
+                <span class="price">$150</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-7-pro-1.jpg" alt="">
+                <h3>Pixel 7 Pro</h3>
+                <p>Google Tensor G2 CPU <br> 6.7" 120Hz LTPO OLED display <br> 50MP Triple Camera <br> Ram and Storage : 12GB, 256GB </p>
+                <span class="price">$200</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-6a-1.jpg" alt="">
+                <h3>Pixel 6a</h3>
+                <p>Google Tensor CPU <br> 6.1" 60Hz OLED display <br> 12MP Dual Camera <br> Ram and Storage : 6GB, 128GB </p>
+                <span class="price">$130</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-6-1.jpg" alt="">
+                <h3>Pixel 6</h3>
+                <p>Google Tensor CPU <br> 6.4" 90Hz OLED display <br> 50MP Dual Camera <br> Ram and Storage : 8GB, 128GB </p>
+                <span class="price">$100</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-6-pro-1.jpg" alt="">
+                <h3>Pixel 6 Pro</h3>
+                <p>Google Tensor CPU <br> 6.7" 120Hz LTPO OLED display <br> 50MP Triple Camera <br> Ram and Storage : 12GB, 256GB </p>
+                <span class="price">$135</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSavu-ybvANf_b2hxCkYSYmcmG4fRrZmA3tP20KF9BI1KxkfBdtTdQWQQj0&s=10" alt="">
+                <h3>Pixel 5</h3>
+                <p>Snapdragon 765G CPU <br> 6.0" 90Hz OLED display <br> 12MP Dual Camera <br> Ram and Storage : 8GB, 128GB </p>
+                <span class="price">$133</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-4a-5g-1.jpg" alt="">
+                <h3>Pixel 4a 5G</h3>
+                <p>Snapdragon 765G CPU <br> 6.2" 60Hz OLED display <br> 12MP Dual Camera <br> Ram and Storage : 6GB, 128GB </p>
+                <span class="price">$85</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+            <div class="box">
+                <img src="https://fdn2.gsmarena.com/vv/pics/google/google-pixel-4a-1.jpg" alt="">
+                <h3>Pixel 4a</h3>
+                <p>Snapdragon 730G CPU <br> 5.8" 60Hz OLED display <br> 12MP Single Camera <br> Ram and Storage : 6GB, 128GB </p>
+                <span class="price">$100</span>
+                <div class="color-picker">
+                    <select class="color-select">
+                        <option value="Obsidian">Obsidian</option>
+                        <option value="Porcelain">Porcelain</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Sky">Sky</option>
+                        <option value="Wintergreen">Wintergreen</option>
+                        <option value="Peony">Peony</option>
+                        <option value="Iris">Iris</option>
+                        <option value="Aloe">Aloe</option>
+                        <option value="Bay">Bay</option>
+                        <option value="Mint">Mint</option>
+                        <option value="Coral">Coral</option>
+                        <option value="Sand">Sand</option>
+                    </select>
+                    <div class="color-boxes" hidden></div>
+                </div>
+                <a href="#" class="btn add-cart">add to cart</a>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Google Pixel section ends -->
+
+    <!-- categories section starts  -->
+
+    <section class="categories" id="categories">
+
+        <h1 class="heading"> Product <span>Category</span> </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/2020/05/google-pixel-logo.jpg" alt="">
+                <h3>GOOGLE PIXEL</h3>
+                <p>upto 25% off</p>
+                <a href="#features" class="btn">shop now</a>
+            </div>
+
+            <div class="box">
+                <img src="./image/oneplus.jfif" alt="">
+                <h3>ONEPLUS</h3>
+                <p>upto 15% off</p>
+                <a href="./Oneplus.html" class="btn">shop now</a>
+            </div>
+
+            <div class="box">
+                <img src="./image/samsung-logo-png-1286.png" alt="">
+                <h3>SAMSUNG</h3>
+                <p>upto 15% off</p>
+                <a href="./samsung.html" class="btn">shop now</a>
+            </div>
+
+            <div class="box">
+                <img src="./image/iphone-logo-527.png" alt="">
+                <h3>IPHONE</h3>
+                <p>upto 15% off</p>
+                <a href="./iphone.html" class="btn">shop now</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- categories section ends -->
+
+    <!-- review section starts  -->
+
+    <section class="review" id="review">
+
+        <h1 class="heading"> customer's <span>review</span> </h1>
+
+        <div class="swiper review-slider">
+
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide box">
+                    <img src="./image/54852.jpg" alt="">
+                    <p>One of the best site out there. Prices are extreme high but overall it has quality products.</p>
+                    <h3>James Hunt</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="./image/59190.jpg" alt="">
+                    <p>Product quality is good and my package was delivered earlier than expected.</p>
+                    <h3>Lucas Morris</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="./image/56109.jpg" alt="">
+                    <p> i hate this site. first of all prices are sky-rocket and then there's no return policy, i mean what a mess.</p>
+                    <h3>Wyatt Whitney</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="swiper-slide box">
+                    <img src="./image/5844.jpg" alt="">
+                    <p>this site is good for first comes first serve basis. grab smartphone as soon as they launch.</p>
+                    <h3>Vance Rogers</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- review section ends -->
+
+    <!-- blogs section starts  -->
+
+    <section class="blogs" id="blogs">
+
+        <h1 class="heading"> our <span>blogs</span> </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <img src="./image/44272.jpg" alt="">
+                <div class="content">
+                    <div class="icons">
+                        <a href="#"> <i class="fas fa-user"></i> by User </a>
+                        <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2022 </a>
+                    </div>
+                    <h3> Everything You Need is Here</h3>
+                    <p>Why i prefer this site? let me explain it in my blog.</p>
+                    <a href="./Dio_Prank.html" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <img src="./image/3390.jpg" alt="">
+                <div class="content">
+                    <div class="icons">
+                        <a href="#"> <i class="fas fa-user"></i> by user </a>
+                        <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2022 </a>
+                    </div>
+                    <h3>Latest Features Smartphone</h3>
+                    <p>iam tech-holic. this site provide latest updates absolutely fast.</p>
+                    <a href="./Dio_Prank.html" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <img src="./image/3392.jpg" alt="">
+                <div class="content">
+                    <div class="icons">
+                        <a href="#"> <i class="fas fa-user"></i> by user </a>
+                        <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2022 </a>
+                    </div>
+                    <h3>Latest And Best Products </h3><br> &nbsp;
+                    <p>what you want from a mobile website? smartphone ofcourse.</p> <br>
+                    <a href="./Dio_Prank.html" class="btn">read more</a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- blogs section ends -->
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3> Namaste <i class="fas fa-shopping-cart"></i> </h3>
+                <p>thank you exploring our website.</p>
+                <div class="share">
+                    <a target="_blank" href="#" class="fab fa-facebook-f"> </a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+
+
+
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> home </a>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> features </a>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> products </a>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> categories </a>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> review </a>
+                <a href="#" class="links"> <i class="fas fa-arrow-right"></i> blogs </a>
+            </div>
+
+            <div class="box">
+                <h3>newsletter</h3>
+                <p>subscribe for latest updates</p>
+                <input type="email" placeholder="your email" class="email">
+                <input type="submit" value="subscribe" class="btn">
+                <img src="image/payment.png" class="payment-img" alt="">
+            </div>
+
+        </div>
+
+        <div class="credit"> 2026 | all rights reserved </div>
+
+    </section>
+
+    <!-- footer section ends -->
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    <script>
+        var swiper = new Swiper(".review-slider", {
+            loop: true,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            centeredSlides: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1020: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+    </script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout — MOBI_HUB</title>
+    <title>PHONEVAULT USA</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/global.css" rel="stylesheet">
     <link href="./css/checkout.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     <script src="./js/bootstrap.min.js"></script>
     <style>
         /* ================= COMPACT RESPONSIVE HEADER ================= */
-        
+
         .header {
             position: fixed;
             top: 0;
@@ -33,40 +33,40 @@
             width: 100%;
             min-height: 0;
         }
-        
+
         .header .logo {
             font-size: 1.6rem;
             font-weight: bold;
             color: #333;
             text-decoration: none;
         }
-        
+
         .header .navbar {
             font-size: 1.3rem;
             margin: 0;
             top: 0;
         }
-        
+
         .header .navbar a {
             margin: 0 6px;
             text-decoration: none;
         }
-        
+
         .header .icons div {
             font-size: 1.6rem;
             cursor: pointer;
         }
-        
+
         .header .icons span {
             font-size: 1.2rem;
         }
-        
+
         .header .search-form,
         .header .shopping-cart,
         .header .login-form {
             display: none;
         }
-        
+
         @media (max-width: 768px) {
             .header {
                 padding: 4px 4%;
@@ -84,18 +84,20 @@
                 padding-top: 70px !important;
             }
         }
+
         /* ================= CHECKOUT LAYOUT ALIGNMENT ================= */
-        
+
         #checkout_page {
             padding-top: 90px;
             padding-bottom: 40px;
         }
-        
+
         .checkout_1>.col-sm-6 {
             margin-bottom: 30px;
         }
+
         /* breadcrumb list alignment */
-        
+
         .check_lm1 ul {
             list-style: none;
             padding: 0;
@@ -105,7 +107,7 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .check_lm1 ul li {
             display: inline-flex;
             align-items: center;
@@ -113,21 +115,23 @@
             font-size: 1.4rem;
             color: #555;
         }
-        
+
         .check_lm1 ul li .fa,
         .check_lm1 ul li .fa-chevron-right {
             font-size: 1.1rem;
             color: #bbb;
         }
+
         /* form section headings */
-        
+
         .check_lm2 h4,
         .check_lm3 h4,
         .check_lm6 h4 {
             margin: 0 0 12px;
         }
+
         /* checkbox rows */
-        
+
         .check_lm3 h5.normal,
         .check_lm5 h5.normal {
             display: flex;
@@ -136,19 +140,20 @@
             margin: 4px 0 10px;
             font-weight: normal;
         }
-        
+
         .check_1 {
             margin: 0;
             transform: scale(1.2);
         }
-        
+
         .space_left,
         .space_right {
             padding-left: 5px;
             padding-right: 5px;
         }
+
         /* ================= BEAUTIFUL FORM INPUTS ================= */
-        
+
         .form-control {
             width: 100%;
             height: 44px;
@@ -163,23 +168,23 @@
             margin-bottom: 12px;
             box-sizing: border-box;
         }
-        
+
         .form-control::placeholder {
             color: #aaa;
         }
-        
+
         .form-control:hover {
             border-color: #c7c7c7;
             background-color: #fff;
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: rgb(215, 16, 16);
             background-color: #fff;
             box-shadow: 0 0 0 3px rgba(215, 16, 16, 0.12);
         }
-        
+
         select.form-control {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -189,14 +194,16 @@
             background-position: right 12px center;
             background-size: 16px;
         }
+
         /* email validation state */
-        
+
         .form-control.invalid {
             border-color: rgb(215, 16, 16);
             box-shadow: 0 0 0 3px rgba(215, 16, 16, 0.12);
         }
+
         /* ================= BEAUTIFUL BUTTONS ================= */
-        
+
         .btn-beauty {
             display: inline-flex;
             align-items: center;
@@ -212,8 +219,9 @@
             text-decoration: none;
             line-height: 1.2;
         }
+
         /* gradient pay button */
-        
+
         #pay-btn {
             background: linear-gradient(135deg, rgb(235, 30, 30) 0%, rgb(190, 10, 10) 100%);
             color: #fff;
@@ -221,7 +229,7 @@
             flex-direction: column;
             text-align: center;
         }
-        
+
         #pay-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, rgb(220, 20, 20) 0%, rgb(165, 5, 5) 100%);
             transform: translateY(-2px);
@@ -229,13 +237,14 @@
             color: #fff;
             text-decoration: none;
         }
-        
+
         #pay-btn:active:not(:disabled) {
             transform: translateY(0);
             box-shadow: 0 4px 10px rgba(215, 16, 16, 0.3);
         }
+
         /* disabled pay button (until all inputs are done) */
-        
+
         #pay-btn:disabled {
             background: linear-gradient(135deg, #d98a8a 0%, #b56666 100%);
             color: #f5e3e3;
@@ -243,7 +252,7 @@
             box-shadow: none;
             transform: none;
         }
-        
+
         #pay-btn .btn-fee {
             display: block;
             font-size: 1.2rem;
@@ -251,8 +260,9 @@
             margin-top: 2px;
             opacity: 0.95;
         }
+
         /* brand icons below the pay button text */
-        
+
         #pay-btn .pay-icons {
             display: flex;
             justify-content: center;
@@ -260,18 +270,19 @@
             font-size: 2.6rem;
             margin-top: 6px;
         }
-        
+
         #pay-btn .pay-icons .fab {
             color: #fff;
         }
+
         /* outline "return to cart" button */
-        
+
         .btn-outline {
             background: transparent;
             color: rgb(215, 16, 16);
             border: 2px solid rgb(215, 16, 16);
         }
-        
+
         .btn-outline:hover {
             background: rgb(215, 16, 16);
             color: #fff;
@@ -279,8 +290,9 @@
             box-shadow: 0 6px 14px rgba(215, 16, 16, 0.25);
             text-decoration: none;
         }
+
         /* ================= PAYMENT SUMMARY LINE ABOVE BUTTON ================= */
-        
+
         .pay-summary {
             width: 100%;
             display: flex;
@@ -297,13 +309,13 @@
             color: #555;
             text-align: center;
         }
-        
+
         .pay-summary .ps-fee {
             color: rgb(215, 16, 16);
             font-weight: bold;
             font-size: 1.6rem;
         }
-        
+
         .pay-summary .ps-method {
             display: inline-flex;
             align-items: center;
@@ -311,20 +323,21 @@
             color: #333;
             font-weight: 500;
         }
-        
+
         .pay-summary .ps-method .fab {
             font-size: 2rem;
             color: #555;
         }
-        
+
         .pay-summary.pending {
             border-style: solid;
             border-color: #e5e5e5;
             background: #fafafa;
             color: #aaa;
         }
+
         /* ================= ACTION BUTTONS ROW ================= */
-        
+
         .checkout_1l3 {
             display: flex;
             flex-wrap: wrap;
@@ -333,21 +346,21 @@
             gap: 12px;
             margin-top: 10px;
         }
-        
+
         .checkout_1l3 hr {
             width: 100%;
             margin: 10px 0;
         }
-        
+
         .checkout_1l3 .btn-outline {
             flex: 0 0 auto;
         }
-        
+
         .checkout_1l3 #pay-btn {
             flex: 0 1 auto;
             min-width: 240px;
         }
-        
+
         @media (max-width: 480px) {
             .checkout_1l3 {
                 flex-direction: column;
@@ -358,30 +371,32 @@
                 width: 100%;
             }
         }
+
         /* ================= ORDER SUMMARY ALIGNMENT ================= */
-        
+
         .checkout_1r1i {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 8px 0;
         }
-        
+
         .checkout_1r1i>div:first-child {
             flex: 1;
         }
-        
+
         .checkout_1r1i>div:last-child {
             flex: 0 0 auto;
             text-align: right;
         }
-        
+
         .checkout_1r1i h5,
         .checkout_1r1i h4 {
             margin: 0;
         }
+
         /* injected cart item rows */
-        
+
         .checkout_1r {
             display: flex;
             align-items: center;
@@ -389,32 +404,33 @@
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        
+
         .checkout_1r img.iw {
             width: 90px;
             border-radius: 10px;
             display: block;
         }
-        
+
         .checkout_1r .item-info {
             flex: 1;
         }
-        
+
         .checkout_1r .item-price {
             text-align: right;
             color: rgb(215, 16, 16);
             font-size: 2rem;
             margin: 0;
         }
+
         /* ================= FOOTER ================= */
-        
+
         .footer .box-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 30px;
         }
-        
+
         .footer .share a {
             display: inline-flex;
             align-items: center;
@@ -428,18 +444,18 @@
             text-decoration: none;
             transition: all 0.25s ease;
         }
-        
+
         .footer .share a:hover {
             background: rgb(215, 16, 16);
             color: #fff;
             border-color: rgb(215, 16, 16);
         }
-        
+
         .footer .credit {
             text-align: center;
             padding: 16px 0;
         }
-        
+
         .check_lm6 h4 i {
             color: #333;
             margin-right: 6px;
@@ -554,7 +570,8 @@
                             <div class="check_lm6 clearfix" style="margin-top:30px;">
                                 <h4><i class="fas fa-credit-card"></i> Payment — Delivery Fee Only</h4>
                                 <p class="normal" style="font-size:1.4rem; color:#777; margin:0 0 10px;">
-                                    Pay only the <b>3% delivery fee</b> now. The full order amount is
+                                    Pay only the <b>delivery fee</b> now ($35 for orders under $500,
+                                    $50 for orders of $500 or more). The full order amount is
                                     <b>paid after delivery</b> (cash on delivery).
                                 </p>
                             </div>
@@ -597,7 +614,7 @@
                                 </div>
                                 <div class="checkout_1r1i clearfix">
                                     <div>
-                                        <h5 class="normal" style="font-size: 2.4rem; margin:0;">Delivery Fee (3%)</h5>
+                                        <h5 class="normal" style="font-size: 2.4rem; margin:0;">Delivery Fee</h5>
                                     </div>
                                     <div>
                                         <h4>
@@ -627,7 +644,7 @@
                                 </div>
                                 <hr>
                                 <p class="normal" style="font-size:1.4rem; color:#555;">
-                                    <i class="fas fa-truck"></i> You pay only the delivery fee today. The full order amount is collected when your order is delivered.
+                                    <i class="fas fa-truck"></i> Delivery fee is $35 for orders under $500 and $50 for orders of $500 or more. You pay only the delivery fee today. The full order amount is collected when your order is delivered.
                                 </p>
                             </div>
 
@@ -683,7 +700,7 @@
         // =====================================================
         //  CHECKOUT PAGE SCRIPT
         //  - Items (picture, color, qty) on TOP of the summary
-        //  - Customer pays ONLY the 3% delivery fee now
+        //  - Delivery fee: $35 if order total < $500, $50 if >= $500
         //  - Full order amount is due AFTER delivery
         //  - Pay button DISABLED until all inputs are completed
         //  - Delivery fee is calculated and shown on the button
@@ -691,11 +708,18 @@
         //  - Complete + valid form -> button enables -> card.html
         // =====================================================
 
-        const DELIVERY_RATE = 0.03; // 3% delivery fee
+        // CHANGED: flat fees instead of percentage
+        const FEE_UNDER_500 = 35;   // order total < $500
+        const FEE_500_OR_MORE = 50; // order total >= $500
 
         const fmt = n => "$" + n.toLocaleString("en-US", {
             minimumFractionDigits: 2
         }) + "/-";
+
+        // CHANGED: fee calculation based on order total
+        function calcDeliveryFee(total) {
+            return total < 500 ? FEE_UNDER_500 : FEE_500_OR_MORE;
+        }
 
         // ---------- CART RENDERING + TOTALS ----------
         (function() {
@@ -740,7 +764,7 @@
                 });
             }
 
-            const deliveryFee = total * DELIVERY_RATE;
+            const deliveryFee = calcDeliveryFee(total); // CHANGED
 
             subtotalEl.textContent = fmt(total);
             deliveryEl.textContent = fmt(deliveryFee);

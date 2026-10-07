@@ -843,3 +843,12 @@ section {
         margin: 2rem auto;
     }
 }
+
+
+
+.logo img {
+    height: 40px;   /* adjust to taste */
+    width: auto;
+    vertical-align: middle;
+    margin-right: 8px;
+}

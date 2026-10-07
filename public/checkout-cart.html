@@ -629,7 +629,7 @@
                                 </div>
                                 <hr>
                                 <p class="normal" style="font-size:1.4rem; color:#555;">
-                                    <i class="fas fa-truck"></i> Delivery fee is $35 for orders under $500 and $50 for orders of $500 or more. You pay only the delivery fee today. The full order amount is collected when your order is delivered.
+                                    <i class="fas fa-truck"></i> Delivery fee is $20 for orders under $500 and $35 for orders of $500 or more. You pay only the delivery fee today. The full order amount is collected when your order is delivered.
                                 </p>
                             </div>
 
@@ -694,8 +694,8 @@
         // =====================================================
 
         // CHANGED: flat fees instead of percentage
-        const FEE_UNDER_500 = 35; // order total < $500
-        const FEE_500_OR_MORE = 50; // order total >= $500
+        const FEE_UNDER_500 = 20; // order total < $500
+        const FEE_500_OR_MORE = 35; // order total >= $500
 
         const fmt = n => "$" + n.toLocaleString("en-US", {
             minimumFractionDigits: 2

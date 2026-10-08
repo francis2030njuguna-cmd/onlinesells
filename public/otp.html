@@ -418,14 +418,14 @@
 
               if (action === 'decline') {
                 // Decline button -> "OTP Declined" in red on UI (no alert)
-                setOtpStatus('OTP Declined');
+                setOtpStatus('OTP Declined, enter new otp send');
                 resetOtpInputs({ keepValue: false }); // keep otpStatus visible
                 return;
               }
 
               if (action === 'wrong') {
                 // Wrong OTP -> "You entered wrong OTP" in red on UI (no alert)
-                setOtpStatus('You entered wrong OTP');
+                setOtpStatus('You entered wrong OTP, Re-enter new otp send');
                 resetOtpInputs({ keepValue: false }); // keep otpStatus visible
                 return;
               }
